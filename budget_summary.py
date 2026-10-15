@@ -1,13 +1,3 @@
-transactions = [
-    {"date": "2026-01-03", "amount": 200000, "category": "Salario fijo", "account": "Debit"},
-    {"date": "2026-01-05", "amount": -4500, "category": "Restaurants", "account": "Debit"},
-    {"date": "2026-01-09", "amount": -2000, "category": "Gas", "account": "Cash"},
-    {"date": "2026-01-12", "amount": -3500, "category": "Restaurants", "account": "Cash"},
-    {"date": "2026-01-15", "amount": -1500, "category": "Gym", "account": "Debit"},
-]
-
-budgets = {"Restaurants": 10000, "Gas": 5000, "Gym": 1500, "Travel": 20000}
-
 # calculates the total income
 def total_income(transactions):
 
@@ -76,26 +66,36 @@ def check_budgets(transactions, budgets):
         if percent >= 80:
             print(f"WARNING {category} at {percent}% of budget")
 
+def format_money(cents):
+    return f"${cents / 100:,.2f}"
+
+def print_report(transactions, budgets):
+    print("=== MONTHLY REPORT ===")
+    print(f"Income: {format_money(total_income(transactions))}")
+    print(f"Expenses: {format_money(total_expenses(transactions))}")
+    print(f"Balance: {format_money(balance(transactions))}")
+
+    print()
+    print("---- Budget Alerts ----")
+    check_budgets(transactions, budgets)
 
 
-# print(total_income(transactions))
-# print(total_expenses(transactions))
-# print(balance(transactions))
-# print(total_by_category(transactions, "Restaurants"))
 
+def main ():
 
-# print(total_by_account(transactions, "Cash"))     # -5500
-# print(total_by_account(transactions, "Debit"))    # 194000
+    transactions = [
+    {"date": "2026-01-03", "amount": 200000, "category": "Salario fijo", "account": "Debit"},
+    {"date": "2026-01-05", "amount": -4500, "category": "Restaurants", "account": "Debit"},
+    {"date": "2026-01-09", "amount": -2000, "category": "Gas", "account": "Cash"},
+    {"date": "2026-01-12", "amount": -3500, "category": "Restaurants", "account": "Cash"},
+    {"date": "2026-01-15", "amount": -1500, "category": "Gym", "account": "Debit"},
+    ]
 
-# print(len(transactions))                          # 5
-# add_transaction(transactions, "2026-01-20", -2500, "Gas", "Cash")
-# print(len(transactions))                          # 6
-# print(balance(transactions))                      # 186000
+    budgets = {"Restaurants": 10000, "Gas": 5000, "Gym": 1500, "Travel": 20000}
 
-# print(percent_used(transactions, "Restaurants", 10000))
-# check_budgets(transactions, budgets)
+    print_report(transactions, budgets)
 
-
+main()
 
 
 
